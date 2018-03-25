@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oro_project.classes.*;
 import javafx.scene.layout.AnchorPane;
+import oro_project.view.AddProductController;
 import oro_project.view.RootWindowController;
 /* Functionalities
  * 1. Add new custumer
@@ -46,25 +47,21 @@ public class MainClass extends Application{
 			e.printStackTrace();
 		}
 	}
-	public void showAddProductWindow() throws IOException{
+	public Object showAddProductWindow(String name) throws IOException{
 		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainClass.class.getResource("view/AddProduct.fxml"));
+        loader.setLocation(MainClass.class.getResource("view/Add" + name + ".fxml"));
         AnchorPane page = (AnchorPane) loader.load();
-
         Stage dialogStage = new Stage();
-        dialogStage.setTitle("Add Product");
+        dialogStage.setTitle("Add " + name);
         dialogStage.initOwner(primaryStage);
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
-
-        // Set the person into the controller.
-        /*PersonEditDialogController controller = loader.getController();
+        AddProductController controller = loader.getController();
         controller.setDialogStage(dialogStage);
-        controller.setPerson(person);*/
-
-        // Show the dialog and wait until the user closes it
         dialogStage.showAndWait();
+        return controller;
 	}
+
 	public static void connect_with_database(){
 		SessionFactory factory = HibernateUtil.buildSessionFactory();
         session = factory.openSession();
@@ -78,7 +75,6 @@ public class MainClass extends Application{
 		Salesman s1 = new Salesman("Jan","Kowalski",new Date(), a1, 3500.50);
 		Customer c1 = new Customer("Anna","Nowak", a1);
 		Order o1 = new Order(p1, 20, new Date(), c1, s1);
-		//p1.setId(1);
 		session.save(a1);
 		session.save(p1);
 		session.save(s1);

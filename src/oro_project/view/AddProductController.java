@@ -23,11 +23,23 @@ public class AddProductController {
 
 	@FXML
 	private void addProduct(){
-
+		String name = this.name.getText();
+		Integer amount = Integer.valueOf(this.amount.getText());
+		Double price = Double.valueOf(this.price.getText());
+		product = new Product(name, amount, price);
+		this.okClicked = true;
+		dialogStage.close();
 	}
 
 	@FXML
     private void handleCancel() {
         dialogStage.close();
     }
+
+	public Product getProduct(){
+		return this.product;
+	}
+	public void setDialogStage(Stage st){
+		this.dialogStage = st;
+	}
 }
