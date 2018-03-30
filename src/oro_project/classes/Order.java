@@ -1,7 +1,8 @@
 package oro_project.classes;
 
 import static javax.persistence.GenerationType.IDENTITY;
-import java.util.Date;
+
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class Order {
 	@JoinColumn(name = "product_id", nullable = false)
 	private Product product;
 	private Integer amount;
-	private Date dateOfOrder;
+	private LocalDate dateOfOrder;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
@@ -28,7 +29,7 @@ public class Order {
 	@JoinColumn(name = "salesman_id", nullable = false)
 	private Salesman salesman;
 
-	public Order(Product product, Integer amount, Date dateOfOrder,
+	public Order(Product product, Integer amount, LocalDate dateOfOrder,
 			Customer customer, Salesman s) {
 		super();
 		this.product = product;
@@ -55,10 +56,10 @@ public class Order {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
-	public Date getDateOfOrder() {
+	public LocalDate getDateOfOrder() {
 		return dateOfOrder;
 	}
-	public void setDateOfOrder(Date dateOfOrder) {
+	public void setDateOfOrder(LocalDate dateOfOrder) {
 		this.dateOfOrder = dateOfOrder;
 	}
 	public Customer getCustomer() {

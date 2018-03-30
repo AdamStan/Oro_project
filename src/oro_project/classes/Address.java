@@ -12,11 +12,11 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
-	private Integer numberOfBuilding;
+	private String numberOfBuilding;
 	private String street;
 	private String city;
 
-	public Address(Integer numberOfBuilding, String street, String city) {
+	public Address(String numberOfBuilding, String street, String city) {
 		this.numberOfBuilding = numberOfBuilding;
 		this.street = street;
 		this.city = city;
@@ -65,10 +65,10 @@ public class Address {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getNumberOfBuilding() {
+	public String getNumberOfBuilding() {
 		return numberOfBuilding;
 	}
-	public void setNumberOfBuilding(Integer numberOfBuilding) {
+	public void setNumberOfBuilding(String numberOfBuilding) {
 		this.numberOfBuilding = numberOfBuilding;
 	}
 	public String getStreet() {

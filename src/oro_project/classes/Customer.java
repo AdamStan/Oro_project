@@ -34,7 +34,7 @@ public class Customer {
 		this.address = address;
 	}
 	public Customer(String name, String surname,
-			Integer numberOfBuilding, String street, String city) {
+			String numberOfBuilding, String street, String city) {
 		this.name = name;
 		this.surname = surname;
 		this.address = new Address(numberOfBuilding, street, city);

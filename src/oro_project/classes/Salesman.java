@@ -1,7 +1,8 @@
 package oro_project.classes;
 
 import static javax.persistence.GenerationType.IDENTITY;
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -21,7 +22,7 @@ public class Salesman {
 	private Integer id;
 	private String name;
 	private String surname;
-	private Date whenStarted;
+	private LocalDate whenStarted;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id", nullable = false)
 	private Address address;
@@ -30,7 +31,7 @@ public class Salesman {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesman")
 	private Set<Order> orders = new HashSet<Order>();
 
-	public Salesman(String name, String surname, Date whenStarted,
+	public Salesman(String name, String surname, LocalDate whenStarted,
 			Address address, Double salary) {
 		this.name = name;
 		this.surname = surname;
@@ -63,11 +64,11 @@ public class Salesman {
 		this.surname = surname;
 	}
 
-	public Date getWhenStarted() {
+	public LocalDate getWhenStarted() {
 		return whenStarted;
 	}
 
-	public void setWhenStarted(Date whenStarted) {
+	public void setWhenStarted(LocalDate whenStarted) {
 		this.whenStarted = whenStarted;
 	}
 

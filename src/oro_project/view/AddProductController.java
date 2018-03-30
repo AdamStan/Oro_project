@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import oro_project.classes.Product;
 
-public class AddProductController {
+public class AddProductController implements ControllerWindow {
 	@FXML
 	private TextField name;
 	@FXML

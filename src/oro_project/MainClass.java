@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import oro_project.classes.*;
 import javafx.scene.layout.AnchorPane;
 import oro_project.view.AddProductController;
+import oro_project.view.ControllerWindow;
 import oro_project.view.RootWindowController;
 /* Functionalities
  * 1. Add new custumer
@@ -39,7 +40,7 @@ public class MainClass extends Application{
 
 			RootWindowController controller = loader.getController();
 	        controller.setMainApp(this);
-
+	        //function for loading salesman from database
             primaryStage.setScene(scene);
             primaryStage.setTitle("SHOP");
             primaryStage.show();
@@ -47,7 +48,7 @@ public class MainClass extends Application{
 			e.printStackTrace();
 		}
 	}
-	public Object showAddProductWindow(String name) throws IOException{
+	public Object showAddWindow(String name) throws IOException{
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainClass.class.getResource("view/Add" + name + ".fxml"));
         AnchorPane page = (AnchorPane) loader.load();
@@ -56,8 +57,8 @@ public class MainClass extends Application{
         dialogStage.initOwner(primaryStage);
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
-        AddProductController controller = loader.getController();
-        controller.setDialogStage(dialogStage);
+        Object controller =  loader.getController();
+        ((ControllerWindow) controller).setDialogStage(dialogStage);
         dialogStage.showAndWait();
         return controller;
 	}
