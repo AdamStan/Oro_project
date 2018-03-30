@@ -39,6 +39,7 @@ public class RootWindowController {
 		String sql_select = "Select * from Salesmans";
 		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
 		query.addEntity(Salesman.class);
+		@SuppressWarnings("unchecked")
 		ArrayList<Salesman> results = (ArrayList<Salesman>) query.list();
 		for(Salesman s : results){
 			System.out.println(s);
@@ -70,7 +71,7 @@ public class RootWindowController {
 	}
 	@FXML
 	private void showAddOrderWindow(){
-		/*try {
+		try {
 			AddOrderController controller =
 					(AddOrderController) mainApp.showAddWindow("Order");
 			if(controller.getOrder() != null){
@@ -81,7 +82,7 @@ public class RootWindowController {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 	@FXML
 	private void showAddCustomerWindow(){

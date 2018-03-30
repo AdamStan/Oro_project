@@ -15,7 +15,6 @@ public class AddProductController implements ControllerWindow {
 
 	private Stage dialogStage;
 	private Product product;
-    private boolean okClicked = false;
 
 	public AddProductController(){
 
@@ -27,7 +26,6 @@ public class AddProductController implements ControllerWindow {
 		Integer amount = Integer.valueOf(this.amount.getText());
 		Double price = Double.valueOf(this.price.getText());
 		product = new Product(name, amount, price);
-		this.okClicked = true;
 		dialogStage.close();
 	}
 
