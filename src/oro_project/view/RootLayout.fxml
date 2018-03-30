@@ -15,9 +15,9 @@
           <Menu mnemonicParsing="false" text="Add">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#showAddProductWindow" text="Product" />
-                  <MenuItem mnemonicParsing="false" text="Customer" />
-                  <MenuItem mnemonicParsing="false" text="Order" />
-                  <MenuItem mnemonicParsing="false" text="Salesman" />
+                  <MenuItem mnemonicParsing="false" onAction="#showAddCustomerWindow" text="Customer" />
+                  <MenuItem mnemonicParsing="false" onAction="#showAddOrderWindow" text="Order" />
+                  <MenuItem mnemonicParsing="false" onAction="#showAddSalasmanWindow" text="Salesman" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Show Data">

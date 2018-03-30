@@ -1,6 +1,12 @@
 package oro_project.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
+
+import org.hibernate.SQLQuery;
 import org.hibernate.Transaction;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
@@ -28,7 +34,23 @@ public class RootWindowController {
 	 * It's loading menu items to who_are_you from database
 	 */
 	public void loadMenuItems(){
+		who_are_you.getItems().clear();
+		Transaction tx = MainClass.session.beginTransaction();
+		String sql_select = "Select * from Salesmans";
+		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
+		query.addEntity(Salesman.class);
+		ArrayList<Salesman> results = (ArrayList<Salesman>) query.list();
+		for(Salesman s : results){
+			System.out.println(s);
+			who_are_you.getItems().add(new MenuItem(s.toString()));
 
+		}
+		for(MenuItem mi : who_are_you.getItems()){
+			mi.setOnAction(e -> {
+				who_are_you.setText(mi.getText());
+			});
+		}
+		tx.commit();
 	}
 
 	@FXML
@@ -48,7 +70,7 @@ public class RootWindowController {
 	}
 	@FXML
 	private void showAddOrderWindow(){
-		try {
+		/*try {
 			AddOrderController controller =
 					(AddOrderController) mainApp.showAddWindow("Order");
 			if(controller.getOrder() != null){
@@ -59,17 +81,18 @@ public class RootWindowController {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	@FXML
 	private void showAddCustomerWindow(){
 		try {
-			AddOrderController controller =
-					(AddOrderController) mainApp.showAddWindow("Customer");
+			AddCustomerController controller =
+					(AddCustomerController) mainApp.showAddWindow("Customer");
 			if(controller.getCustomer() != null){
-				Order o1 = controller.getCustomer();
-				Transaction tx = mainApp.session.beginTransaction();
-				mainApp.session.save(o1);
+				Customer c1 = controller.getCustomer();
+				Transaction tx = MainClass.session.beginTransaction();
+				MainClass.session.save(c1.getAddress());
+				MainClass.session.save(c1);
 				tx.commit();
 			}
 		} catch (IOException e) {
@@ -82,9 +105,10 @@ public class RootWindowController {
 			AddSalesmanController controller =
 					(AddSalesmanController) mainApp.showAddWindow("Salesman");
 			if(controller.getSalesman() != null){
-				Salesman o1 = controller.getSalesman();
-				Transaction tx = mainApp.session.beginTransaction();
-				mainApp.session.save(o1);
+				Salesman s1 = controller.getSalesman();
+				Transaction tx = MainClass.session.beginTransaction();
+				MainClass.session.save(s1.getAddress());
+				MainClass.session.save(s1);
 				tx.commit();
 			}
 		} catch (IOException e) {

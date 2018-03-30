@@ -1,12 +1,14 @@
 package oro_project;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.time.LocalDate;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -41,7 +43,8 @@ public class MainClass extends Application{
 			RootWindowController controller = loader.getController();
 	        controller.setMainApp(this);
 	        //function for loading salesman from database
-            primaryStage.setScene(scene);
+	        controller.loadMenuItems();
+	        primaryStage.setScene(scene);
             primaryStage.setTitle("SHOP");
             primaryStage.show();
 		} catch (IOException e) {
@@ -72,10 +75,10 @@ public class MainClass extends Application{
 		connect_with_database();
 		Transaction tx = session.beginTransaction();
 		Product p1 = new Product("Pepsi", 30, 3.99);
-		Address a1 = new Address(123,"Aleja Politechniki","Lodz");
-		Salesman s1 = new Salesman("Jan","Kowalski",new Date(), a1, 3500.50);
+		Address a1 = new Address("123","Aleja Politechniki","Lodz");
+		Salesman s1 = new Salesman("Jan","Kowalski", LocalDate.now(), a1, 3500.50, 550.0);
 		Customer c1 = new Customer("Anna","Nowak", a1);
-		Order o1 = new Order(p1, 20, new Date(), c1, s1);
+		Order o1 = new Order(p1, 20, LocalDate.now(), c1, s1);
 		session.save(a1);
 		session.save(p1);
 		session.save(s1);

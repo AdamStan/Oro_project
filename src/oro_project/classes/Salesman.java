@@ -32,12 +32,13 @@ public class Salesman {
 	private Set<Order> orders = new HashSet<Order>();
 
 	public Salesman(String name, String surname, LocalDate whenStarted,
-			Address address, Double salary) {
+			Address address, Double salary, Double bonus) {
 		this.name = name;
 		this.surname = surname;
 		this.whenStarted = whenStarted;
 		this.address = address;
 		this.salary = salary;
+		this.bonus = bonus;
 	}
 
 	public Integer getId() {
@@ -102,6 +103,11 @@ public class Salesman {
 
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
+	}
+
+	@Override
+	public String toString() {
+		return name + ", " + surname ;
 	}
 
 }
