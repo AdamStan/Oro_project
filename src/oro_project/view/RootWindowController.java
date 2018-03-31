@@ -20,6 +20,7 @@ public class RootWindowController {
 	private MenuButton who_are_you;
 
 	private MainClass mainApp;
+	private ArrayList<Salesman> results;
 
 	public RootWindowController(){
 
@@ -39,12 +40,10 @@ public class RootWindowController {
 		String sql_select = "Select * from Salesmans";
 		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
 		query.addEntity(Salesman.class);
-		@SuppressWarnings("unchecked")
-		ArrayList<Salesman> results = (ArrayList<Salesman>) query.list();
-		for(Salesman s : results){
-			System.out.println(s);
-			who_are_you.getItems().add(new MenuItem(s.toString()));
+		this.results = (ArrayList<Salesman>) query.list();
 
+		for(Salesman s : results){
+			who_are_you.getItems().add(new MenuItem(s.toString()));
 		}
 		for(MenuItem mi : who_are_you.getItems()){
 			mi.setOnAction(e -> {

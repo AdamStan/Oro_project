@@ -69,6 +69,10 @@ public class Customer {
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
 	}
+	@Override
+	public String toString() {
+		return name + ", " + surname + ", " + address.toString();
+	}
 
 
 }

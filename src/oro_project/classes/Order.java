@@ -20,7 +20,7 @@ public class Order {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id", nullable = false)
 	private Product product;
-	private Integer amount;
+	private Double amount;
 	private LocalDate dateOfOrder;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", nullable = false)
@@ -29,7 +29,7 @@ public class Order {
 	@JoinColumn(name = "salesman_id", nullable = false)
 	private Salesman salesman;
 
-	public Order(Product product, Integer amount, LocalDate dateOfOrder,
+	public Order(Product product, Double amount, LocalDate dateOfOrder,
 			Customer customer, Salesman s) {
 		super();
 		this.product = product;
@@ -50,10 +50,10 @@ public class Order {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	public Integer getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
-	public void setAmount(Integer amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 	public LocalDate getDateOfOrder() {

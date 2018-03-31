@@ -21,6 +21,11 @@ public class Product {
 		this.amount = amount;
 		this.priceEach = priceEach;
 	}
+	public Product(Product p) {
+		this.name = p.name;
+		this.amount = p.amount;
+		this.priceEach = p.priceEach;
+	}
 	public Integer getId() {
 		return id;
 	}

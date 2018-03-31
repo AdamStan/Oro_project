@@ -84,5 +84,11 @@ public class Address {
 		this.city = city;
 	}
 
+	@Override
+	public String toString() {
+		return numberOfBuilding + ", " + street + ", " + city;
+	}
+
 
 }
+
