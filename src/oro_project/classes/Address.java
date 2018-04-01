@@ -30,6 +30,9 @@ public class Address implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
 	private Set<Customer> customers = new HashSet<Customer>();
 
+	public Address(){
+
+	}
 	public Address(String numberOfBuilding, String street, String city) {
 		this.numberOfBuilding = numberOfBuilding;
 		this.street = street;

@@ -97,7 +97,7 @@ public class RootWindowController {
 			if(controller.getCustomer() != null){
 				Customer c1 = controller.getCustomer();
 				Transaction tx = MainClass.session.beginTransaction();
-				MainClass.session.save(c1.getAddress());
+				MainClass.session.saveOrUpdate(c1.getAddress());
 				MainClass.session.save(c1);
 				tx.commit();
 			}
@@ -113,7 +113,7 @@ public class RootWindowController {
 			if(controller.getSalesman() != null){
 				Salesman s1 = controller.getSalesman();
 				Transaction tx = MainClass.session.beginTransaction();
-				MainClass.session.save(s1.getAddress());
+				MainClass.session.saveOrUpdate(s1.getAddress());
 				MainClass.session.save(s1);
 				tx.commit();
 			}

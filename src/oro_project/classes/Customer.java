@@ -31,7 +31,9 @@ public class Customer implements Serializable{
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
 	private Set<Order> orders = new HashSet<Order>();
+	public Customer(){
 
+	}
 	public Customer(String name, String surname, Address address) {
 		this.name = name;
 		this.surname = surname;

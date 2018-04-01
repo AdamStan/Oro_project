@@ -1,10 +1,16 @@
 package oro_project.view;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+
+import org.hibernate.SQLQuery;
+import org.hibernate.Transaction;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import oro_project.MainClass;
 import oro_project.classes.Address;
 import oro_project.classes.Salesman;
 
@@ -43,8 +49,29 @@ public class AddSalesmanController implements ControllerWindow {
 		LocalDate whenStarted = this.whenStarted.getValue();
 		Double salary = Double.valueOf(this.salary.getText());
 		Double bonus = Double.valueOf(this.bonus.getText());
+
+		Transaction tx = MainClass.session.beginTransaction();
+		String sql_select = "Select * from Addresses where"
+				+ " numberOfBuilding = '" + numberOfBuilding + "' AND"
+				+ " street = '" + street + "' AND"
+				+ " city = '" + city + "';";
+		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
+
+		query.addEntity(Address.class);
+		@SuppressWarnings("unchecked")
+		ArrayList<Address> results = (ArrayList<Address>) query.list();
+		Address ad = null;
+		if(!results.isEmpty()){
+			System.out.println("Mamy adres w bazie");
+			ad = results.get(0);
+		}
+		tx.commit();
+		if(ad == null){
+			ad = new Address(numberOfBuilding,street,city);
+		}
+
 		this.salesman = new Salesman(name,surname,whenStarted,
-				new Address(numberOfBuilding, street, city), salary, bonus);
+				ad, salary, bonus);
 		dialogStage.close();
 	}
 

@@ -36,13 +36,10 @@ public class AddOrderController implements ControllerWindow {
 	public void addOrder(){
 		String product = productName.getText();
 		Double amount = Double.valueOf(this.amount.getText());
-		String client = clients.getText();
-		String[] values = client.split(", ");
 		Transaction tx = MainClass.session.beginTransaction();
 		String sql_select = "Select * from Products where name = " + "'" + product + "'";
 		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
 
-		System.out.println(query.list());
 		query.addEntity(Product.class);
 		@SuppressWarnings("unchecked")
 		ArrayList<Product> results = (ArrayList<Product>) query.list();

@@ -2,13 +2,9 @@ package oro_project;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
-import java.time.LocalDate;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,7 +13,6 @@ import javafx.stage.Stage;
 import oro_project.classes.*;
 import javafx.scene.layout.AnchorPane;
 import oro_project.view.AddOrderController;
-import oro_project.view.AddProductController;
 import oro_project.view.ControllerWindow;
 import oro_project.view.RootWindowController;
 /* Functionalities
@@ -74,9 +69,7 @@ public class MainClass extends Application{
 		SessionFactory factory = HibernateUtil.buildSessionFactory();
         session = factory.openSession();
 	}
-
-	public static void main(String[] args) {
-		connect_with_database();
+	public static void on_first_use(){
 		Transaction tx = session.beginTransaction();
 		Product p1 = new Product("Pepsi", 30, 3.99);
 		Address a1 = new Address("123","Aleja Politechniki","Lodz");
@@ -89,6 +82,11 @@ public class MainClass extends Application{
 		session.save(c1);
 		session.save(o1);
 		tx.commit();
+	}
+
+	public static void main(String[] args) {
+		connect_with_database();
+		//on_first_use();
 		launch(args);
 	}
 

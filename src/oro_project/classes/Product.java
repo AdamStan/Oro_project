@@ -24,6 +24,9 @@ public class Product {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
 	private Set<Order> orders = new HashSet<Order>();
 
+	public Product(){
+
+	}
 	public Product(String name, Integer amount, Double priceEach) {
 		this.name = name;
 		this.amount = amount;

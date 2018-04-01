@@ -36,6 +36,9 @@ public class Salesman implements Serializable{
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesman")
 	private Set<Order> orders = new HashSet<Order>();
 
+	public Salesman() {
+
+	}
 	public Salesman(String name, String surname, LocalDate whenStarted,
 			Address address, Double salary, Double bonus) {
 		this.name = name;

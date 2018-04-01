@@ -33,6 +33,9 @@ public class Order {
 	@JoinColumn(name = "salesman_id", nullable = false)
 	private Salesman salesman;
 
+	public Order(){
+
+	}
 	public Order(Product product, Double amount, LocalDate dateOfOrder,
 			Customer customer, Salesman s) {
 		super();
