@@ -15,13 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import oro_project.view.AddOrderController;
 import oro_project.view.ControllerWindow;
 import oro_project.view.RootWindowController;
-/* Functionalities
- * 1. Add new custumer
- * 2. Add new order
- * 3. Add new product
- * 4. Add new salesman
- * 5. Delete for all
- * */
+
 
 public class MainClass extends Application{
 	public static Session session;
