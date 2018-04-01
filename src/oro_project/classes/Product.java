@@ -1,10 +1,15 @@
 package oro_project.classes;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Products")
@@ -15,6 +20,9 @@ public class Product {
 	private String name;
 	private Integer amount;
 	private Double priceEach;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	private Set<Order> orders = new HashSet<Order>();
 
 	public Product(String name, Integer amount, Double priceEach) {
 		this.name = name;
@@ -49,6 +57,12 @@ public class Product {
 	}
 	public void setPriceEach(Double priceEach) {
 		this.priceEach = priceEach;
+	}
+	public Set<Order> getOrders() {
+		return orders;
+	}
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
 	}
 
 }

@@ -2,9 +2,6 @@ package oro_project.view;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Transaction;
@@ -19,8 +16,10 @@ public class RootWindowController {
 	@FXML
 	private MenuButton who_are_you;
 
+
 	private MainClass mainApp;
-	private ArrayList<Salesman> results;
+	private static ArrayList<Salesman> results;
+	private static Salesman salesman;
 
 	public RootWindowController(){
 
@@ -34,13 +33,14 @@ public class RootWindowController {
 	/*
 	 * It's loading menu items to who_are_you from database
 	 */
+	@SuppressWarnings("unchecked")
 	public void loadMenuItems(){
 		who_are_you.getItems().clear();
 		Transaction tx = MainClass.session.beginTransaction();
 		String sql_select = "Select * from Salesmans";
 		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
 		query.addEntity(Salesman.class);
-		this.results = (ArrayList<Salesman>) query.list();
+		RootWindowController.results = (ArrayList<Salesman>) query.list();
 
 		for(Salesman s : results){
 			who_are_you.getItems().add(new MenuItem(s.toString()));
@@ -48,6 +48,8 @@ public class RootWindowController {
 		for(MenuItem mi : who_are_you.getItems()){
 			mi.setOnAction(e -> {
 				who_are_you.setText(mi.getText());
+				RootWindowController.salesman =
+						results.get(who_are_you.getItems().indexOf(mi));
 			});
 		}
 		tx.commit();
@@ -75,8 +77,12 @@ public class RootWindowController {
 					(AddOrderController) mainApp.showAddWindow("Order");
 			if(controller.getOrder() != null){
 				Order o1 = controller.getOrder();
-				Transaction tx = mainApp.session.beginTransaction();
-				mainApp.session.save(o1);
+				o1.setSalesman(RootWindowController.salesman);
+				Transaction tx = MainClass.session.beginTransaction();
+				MainClass.session.update(o1.getProduct());
+				MainClass.session.update(o1.getCustomer());
+				MainClass.session.update(o1.getSalesman());
+				MainClass.session.save(o1);
 				tx.commit();
 			}
 		} catch (IOException e) {

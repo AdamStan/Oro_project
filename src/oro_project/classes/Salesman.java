@@ -2,6 +2,7 @@ package oro_project.classes;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,18 +17,22 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Salesmans")
-public class Salesman {
+public class Salesman implements Serializable{
+	private static final long serialVersionUID = 3433902234236139248L;
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
 	private String name;
 	private String surname;
 	private LocalDate whenStarted;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id", nullable = false)
 	private Address address;
+
 	private Double salary;
 	private Double bonus;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesman")
 	private Set<Order> orders = new HashSet<Order>();
 
@@ -39,6 +44,15 @@ public class Salesman {
 		this.address = address;
 		this.salary = salary;
 		this.bonus = bonus;
+	}
+
+	public Salesman(Salesman p) {
+		this.name = p.name;
+		this.surname = p.surname;
+		this.whenStarted = p.whenStarted;
+		this.address = p.address;
+		this.salary = p.salary;
+		this.bonus = p.bonus;
 	}
 
 	public Integer getId() {
@@ -107,7 +121,7 @@ public class Salesman {
 
 	@Override
 	public String toString() {
-		return name + ", " + surname ;
+		return name + ", " + surname;
 	}
 
 }

@@ -2,6 +2,7 @@ package oro_project.classes;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,15 +17,18 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Customers")
-public class Customer {
+public class Customer implements Serializable{
+	private static final long serialVersionUID = 2950095738014766203L;
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
 	private String name;
 	private String surname;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id", nullable = false)
 	private Address address;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
 	private Set<Order> orders = new HashSet<Order>();
 

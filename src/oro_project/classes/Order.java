@@ -17,14 +17,18 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id", nullable = false)
 	private Product product;
+
 	private Double amount;
 	private LocalDate dateOfOrder;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "salesman_id", nullable = false)
 	private Salesman salesman;

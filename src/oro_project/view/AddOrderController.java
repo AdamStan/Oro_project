@@ -2,10 +2,8 @@ package oro_project.view;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import org.hibernate.SQLQuery;
 import org.hibernate.Transaction;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -27,6 +25,9 @@ public class AddOrderController implements ControllerWindow {
 	private Order order;
 	private Salesman salesman;
 
+	private static Customer client;
+	private static ArrayList<Customer> customers;
+
 	public AddOrderController(){
 
 	}
@@ -37,22 +38,20 @@ public class AddOrderController implements ControllerWindow {
 		Double amount = Double.valueOf(this.amount.getText());
 		String client = clients.getText();
 		String[] values = client.split(", ");
-		Customer cus = new Customer(values[0], values[1],
-				values[2], values[3], values[4]);
-
 		Transaction tx = MainClass.session.beginTransaction();
 		String sql_select = "Select * from Products where name = " + "'" + product + "'";
 		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
-		System.out.println("SSS");
+
 		System.out.println(query.list());
 		query.addEntity(Product.class);
 		@SuppressWarnings("unchecked")
 		ArrayList<Product> results = (ArrayList<Product>) query.list();
-		System.out.println("SSS_SSS");
-		Product p = new Product(results.get(0));
+
+		Product p = results.get(0);
 		tx.commit();
 
-		this.order = new Order(p, amount, LocalDate.now(),  cus, this.salesman);
+		this.order = new Order(p, amount, LocalDate.now(),
+				AddOrderController.client, this.salesman);
 
 		dialogStage.close();
 	}
@@ -62,20 +61,23 @@ public class AddOrderController implements ControllerWindow {
         dialogStage.close();
     }
 
+	@SuppressWarnings("unchecked")
 	public void loadMenuItems(){
 		clients.getItems().clear();
 		Transaction tx = MainClass.session.beginTransaction();
 		String sql_select = "Select * from Customers";
 		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
 		query.addEntity(Customer.class);
-		ArrayList<Customer> results = (ArrayList<Customer>) query.list();
+		AddOrderController.customers = (ArrayList<Customer>) query.list();
 
-		for(Customer s : results){
+		for(Customer s : customers){
 			clients.getItems().add(new MenuItem(s.toString()));
 		}
 		for(MenuItem mi : clients.getItems()){
 			mi.setOnAction(e -> {
 				clients.setText(mi.getText());
+				AddOrderController.client =
+						customers.get(clients.getItems().indexOf(mi));
 			});
 		}
 		tx.commit();

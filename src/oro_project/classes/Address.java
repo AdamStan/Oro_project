@@ -1,20 +1,34 @@
 package oro_project.classes;
 
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Addresses")
-public class Address {
+public class Address implements Serializable {
+
+	private static final long serialVersionUID = 123456L;
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
 	private String numberOfBuilding;
 	private String street;
 	private String city;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
+	private Set<Salesman> salesmans = new HashSet<Salesman>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
+	private Set<Customer> customers = new HashSet<Customer>();
 
 	public Address(String numberOfBuilding, String street, String city) {
 		this.numberOfBuilding = numberOfBuilding;
@@ -87,6 +101,22 @@ public class Address {
 	@Override
 	public String toString() {
 		return numberOfBuilding + ", " + street + ", " + city;
+	}
+
+	public Set<Salesman> getSalesmans() {
+		return salesmans;
+	}
+
+	public void setSalesmans(Set<Salesman> salesmans) {
+		this.salesmans = salesmans;
+	}
+
+	public Set<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(Set<Customer> customers) {
+		this.customers = customers;
 	}
 
 
