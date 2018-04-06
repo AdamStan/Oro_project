@@ -22,6 +22,13 @@ public class MainClass extends Application{
 	public static BorderPane rootLayout;
 	public static Stage primaryStage;
 
+/*
+ * Do zrobienia:
+ * 1. Zamiana LocalDate na Date (konwersja typu LocalDate do bazy danych)
+ * 2. Pokazanie Produktów
+ * 3. Pokazanie Zamówieñ
+ * 4. ZnajdŸ produkt, zamówienie, klienta
+ */
 	@Override
 	public void start(Stage primaryStage) {
 		FXMLLoader loader = new FXMLLoader();
@@ -80,7 +87,7 @@ public class MainClass extends Application{
 
 	public static void main(String[] args) {
 		connect_with_database();
-		//on_first_use();
+		on_first_use();
 		launch(args);
 	}
 

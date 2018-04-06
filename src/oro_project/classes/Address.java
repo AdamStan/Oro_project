@@ -26,7 +26,7 @@ public class Address implements Serializable {
 	private String city;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
-	private Set<Salesman> salesmans = new HashSet<Salesman>();
+	private Set<Salesman> salesmen = new HashSet<Salesman>();
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
 	private Set<Customer> customers = new HashSet<Customer>();
 
@@ -106,12 +106,12 @@ public class Address implements Serializable {
 		return numberOfBuilding + ", " + street + ", " + city;
 	}
 
-	public Set<Salesman> getSalesmans() {
-		return salesmans;
+	public Set<Salesman> getSalesmen() {
+		return salesmen;
 	}
 
-	public void setSalesmans(Set<Salesman> salesmans) {
-		this.salesmans = salesmans;
+	public void setSalesmen(Set<Salesman> salesmen) {
+		this.salesmen = salesmen;
 	}
 
 	public Set<Customer> getCustomers() {

@@ -37,7 +37,7 @@ public class RootWindowController {
 	public void loadMenuItems(){
 		who_are_you.getItems().clear();
 		Transaction tx = MainClass.session.beginTransaction();
-		String sql_select = "Select * from Salesmans";
+		String sql_select = "Select * from Salesmen";
 		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
 		query.addEntity(Salesman.class);
 		RootWindowController.results = (ArrayList<Salesman>) query.list();
