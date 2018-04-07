@@ -7,8 +7,10 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Transaction;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import oro_project.MainClass;
 import oro_project.classes.Address;
@@ -41,38 +43,44 @@ public class AddSalesmanController implements ControllerWindow {
 
 	@FXML
 	private void addSalesman(){
-		String name = this.name.getText();
-		String surname = this.surname.getText();
-		String street = this.street.getText();
-		String numberOfBuilding = this.numberOfBuilding.getText();
-		String city = this.city.getText();
-		LocalDate whenStarted = this.whenStarted.getValue();
-		Double salary = Double.valueOf(this.salary.getText());
-		Double bonus = Double.valueOf(this.bonus.getText());
+		try{
+			String name = this.name.getText();
+			String surname = this.surname.getText();
+			String street = this.street.getText();
+			String numberOfBuilding = this.numberOfBuilding.getText();
+			String city = this.city.getText();
+			LocalDate whenStarted = this.whenStarted.getValue();
+			Double salary = Double.valueOf(this.salary.getText());
+			Double bonus = Double.valueOf(this.bonus.getText());
 
-		Transaction tx = MainClass.session.beginTransaction();
-		String sql_select = "Select * from Addresses where"
-				+ " numberOfBuilding = '" + numberOfBuilding + "' AND"
-				+ " street = '" + street + "' AND"
-				+ " city = '" + city + "';";
-		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
+			Transaction tx = MainClass.session.beginTransaction();
+			String sql_select = "Select * from Addresses where"
+					+ " numberOfBuilding = '" + numberOfBuilding + "' AND"
+					+ " street = '" + street + "' AND"
+					+ " city = '" + city + "';";
+			SQLQuery query = MainClass.session.createSQLQuery(sql_select);
 
-		query.addEntity(Address.class);
-		@SuppressWarnings("unchecked")
-		ArrayList<Address> results = (ArrayList<Address>) query.list();
-		Address ad = null;
-		if(!results.isEmpty()){
-			System.out.println("Mamy adres w bazie");
-			ad = results.get(0);
+			query.addEntity(Address.class);
+			@SuppressWarnings("unchecked")
+			ArrayList<Address> results = (ArrayList<Address>) query.list();
+			Address ad = null;
+			if(!results.isEmpty()){
+				System.out.println("Mamy adres w bazie");
+				ad = results.get(0);
+			}
+			tx.commit();
+			if(ad == null){
+				ad = new Address(numberOfBuilding,street,city);
+			}
+
+			this.salesman = new Salesman(name,surname,whenStarted,
+					ad, salary, bonus);
+			dialogStage.close();
+		} catch (NumberFormatException e){
+			Alert a = new Alert(AlertType.ERROR);
+			a.setContentText("Wrong value: " + e.getMessage());
+			a.showAndWait();
 		}
-		tx.commit();
-		if(ad == null){
-			ad = new Address(numberOfBuilding,street,city);
-		}
-
-		this.salesman = new Salesman(name,surname,whenStarted,
-				ad, salary, bonus);
-		dialogStage.close();
 	}
 
 	@FXML
