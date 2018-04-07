@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import org.hibernate.SQLQuery;
 import org.hibernate.Transaction;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import oro_project.MainClass;
 import oro_project.classes.*;
+import oro_project.view.exceptions.CustomerIsNullException;
+import oro_project.view.exceptions.ProductNotFoundException;
 
 public class AddOrderController implements ControllerWindow {
 
@@ -25,7 +29,7 @@ public class AddOrderController implements ControllerWindow {
 	private Order order;
 	private Salesman salesman;
 
-	private static Customer client;
+	private Customer client;
 	private static ArrayList<Customer> customers;
 
 	public AddOrderController(){
@@ -34,23 +38,41 @@ public class AddOrderController implements ControllerWindow {
 
 	@FXML
 	public void addOrder(){
-		String product = productName.getText();
-		Double amount = Double.valueOf(this.amount.getText());
-		Transaction tx = MainClass.session.beginTransaction();
-		String sql_select = "Select * from Products where name = " + "'" + product + "'";
-		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
+		try{
+			String product = productName.getText();
+			Double amount = Double.valueOf(this.amount.getText());
+			Transaction tx = MainClass.session.beginTransaction();
+			String sql_select = "Select * from Products where name = " + "'" + product + "'";
+			SQLQuery query = MainClass.session.createSQLQuery(sql_select);
 
-		query.addEntity(Product.class);
-		@SuppressWarnings("unchecked")
-		ArrayList<Product> results = (ArrayList<Product>) query.list();
+			query.addEntity(Product.class);
+			@SuppressWarnings("unchecked")
+			ArrayList<Product> results = (ArrayList<Product>) query.list();
+			tx.commit();
+			Product p = null;
 
-		Product p = results.get(0);
-		tx.commit();
+			try{
+				p = results.get(0);
+			} catch(IndexOutOfBoundsException e){
+				throw new ProductNotFoundException(e.getMessage(), product);
+			}
+			if(this.client == null){
+				throw new CustomerIsNullException("You have not chosen Client");
+			}
 
-		this.order = new Order(p, amount, LocalDate.now(),
-				AddOrderController.client, this.salesman);
+			this.order = new Order(p, amount, LocalDate.now(),
+					this.client, this.salesman);
 
-		dialogStage.close();
+			dialogStage.close();
+		} catch (ProductNotFoundException e) {
+			Alert a = new Alert(AlertType.ERROR);
+			a.setContentText("Wrong value: " + e.toString());
+			a.showAndWait();
+		} catch(NumberFormatException | CustomerIsNullException  e) {
+			Alert a = new Alert(AlertType.ERROR);
+			a.setContentText(e.getMessage());
+			a.showAndWait();
+		}
 	}
 
 	@FXML
@@ -73,7 +95,7 @@ public class AddOrderController implements ControllerWindow {
 		for(MenuItem mi : clients.getItems()){
 			mi.setOnAction(e -> {
 				clients.setText(mi.getText());
-				AddOrderController.client =
+				this.client =
 						customers.get(clients.getItems().indexOf(mi));
 			});
 		}

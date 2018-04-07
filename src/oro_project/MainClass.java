@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import oro_project.view.AddOrderController;
 import oro_project.view.ControllerWindow;
 import oro_project.view.RootWindowController;
+import oro_project.view.exceptions.ProductNotFoundException;
 
 
 public class MainClass extends Application{
@@ -49,21 +50,22 @@ public class MainClass extends Application{
 		}
 	}
 	public Object showAddWindow(String name) throws IOException{
+		Object controller = null;
 		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainClass.class.getResource("view/Add" + name + ".fxml"));
-        AnchorPane page = (AnchorPane) loader.load();
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Add " + name);
-        dialogStage.initOwner(primaryStage);
-        Scene scene = new Scene(page);
-        dialogStage.setScene(scene);
-        Object controller =  loader.getController();
-        ((ControllerWindow) controller).setDialogStage(dialogStage);
-        if(controller.getClass() == AddOrderController.class){
-        	((AddOrderController) controller).loadMenuItems();
-        }
-        dialogStage.showAndWait();
-        return controller;
+		loader.setLocation(MainClass.class.getResource("view/Add" + name + ".fxml"));
+		AnchorPane page = (AnchorPane) loader.load();
+		Stage dialogStage = new Stage();
+		dialogStage.setTitle("Add " + name);
+		dialogStage.initOwner(primaryStage);
+		Scene scene = new Scene(page);
+		dialogStage.setScene(scene);
+		controller =  loader.getController();
+		((ControllerWindow) controller).setDialogStage(dialogStage);
+		if(controller.getClass() == AddOrderController.class){
+			((AddOrderController) controller).loadMenuItems();
+		}
+		dialogStage.showAndWait();
+		return controller;
 	}
 
 	public static void connect_with_database(){

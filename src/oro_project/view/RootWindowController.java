@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import org.hibernate.SQLQuery;
 import org.hibernate.Transaction;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Alert.AlertType;
 import oro_project.MainClass;
 import oro_project.classes.*;
+import oro_project.view.exceptions.ProductNotFoundException;
 
 public class RootWindowController {
 
