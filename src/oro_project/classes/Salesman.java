@@ -4,6 +4,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -24,7 +26,7 @@ public class Salesman implements Serializable{
 	private Integer id;
 	private String name;
 	private String surname;
-	private LocalDate whenStarted;
+	private Date whenStarted;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id", nullable = false)
@@ -43,7 +45,8 @@ public class Salesman implements Serializable{
 			Address address, Double salary, Double bonus) {
 		this.name = name;
 		this.surname = surname;
-		this.whenStarted = whenStarted;
+		this.whenStarted =
+				Date.from(whenStarted.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		this.address = address;
 		this.salary = salary;
 		this.bonus = bonus;
@@ -83,11 +86,12 @@ public class Salesman implements Serializable{
 	}
 
 	public LocalDate getWhenStarted() {
-		return whenStarted;
+		return whenStarted.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
 	public void setWhenStarted(LocalDate whenStarted) {
-		this.whenStarted = whenStarted;
+		this.whenStarted =
+				Date.from(whenStarted.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 
 	public Address getAddress() {

@@ -3,6 +3,9 @@ package oro_project.classes;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,7 +26,7 @@ public class Order {
 	private Product product;
 
 	private Double amount;
-	private LocalDate dateOfOrder;
+	private Date dateOfOrder;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", nullable = false)
@@ -41,7 +44,7 @@ public class Order {
 		super();
 		this.product = product;
 		this.amount = amount;
-		this.dateOfOrder = dateOfOrder;
+		this.dateOfOrder = Date.from(dateOfOrder.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		this.customer = customer;
 		this.salesman = s;
 	}
@@ -64,10 +67,11 @@ public class Order {
 		this.amount = amount;
 	}
 	public LocalDate getDateOfOrder() {
-		return dateOfOrder;
+		return dateOfOrder.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 	public void setDateOfOrder(LocalDate dateOfOrder) {
-		this.dateOfOrder = dateOfOrder;
+		this.dateOfOrder =
+				Date.from(dateOfOrder.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 	public Customer getCustomer() {
 		return customer;

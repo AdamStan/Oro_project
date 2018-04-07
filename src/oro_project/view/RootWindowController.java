@@ -81,10 +81,10 @@ public class RootWindowController {
 					(AddOrderController) mainApp.showAddWindow("Order");
 			if(controller.getOrder() != null){
 				Order o1 = controller.getOrder();
+				o1.setSalesman(RootWindowController.salesman);
 				if(o1.getSalesman() == null){
 					throw new MenuButtonIsNullException("You have not chosen salesman");
 				}
-				o1.setSalesman(RootWindowController.salesman);
 				Transaction tx = MainClass.session.beginTransaction();
 				MainClass.session.update(o1.getProduct());
 				MainClass.session.update(o1.getCustomer());
