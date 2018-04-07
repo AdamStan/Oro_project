@@ -12,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
 import oro_project.MainClass;
 import oro_project.classes.*;
+import oro_project.view.exceptions.MenuButtonIsNullException;
 import oro_project.view.exceptions.ProductNotFoundException;
 
 public class RootWindowController {
@@ -80,6 +81,9 @@ public class RootWindowController {
 					(AddOrderController) mainApp.showAddWindow("Order");
 			if(controller.getOrder() != null){
 				Order o1 = controller.getOrder();
+				if(o1.getSalesman() == null){
+					throw new MenuButtonIsNullException("You have not chosen salesman");
+				}
 				o1.setSalesman(RootWindowController.salesman);
 				Transaction tx = MainClass.session.beginTransaction();
 				MainClass.session.update(o1.getProduct());
@@ -90,6 +94,8 @@ public class RootWindowController {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (MenuButtonIsNullException e){
+			e.showMessage();
 		}
 	}
 	@FXML

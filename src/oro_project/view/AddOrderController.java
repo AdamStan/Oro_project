@@ -13,7 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import oro_project.MainClass;
 import oro_project.classes.*;
-import oro_project.view.exceptions.CustomerIsNullException;
+import oro_project.view.exceptions.MenuButtonIsNullException;
 import oro_project.view.exceptions.ProductNotFoundException;
 
 public class AddOrderController implements ControllerWindow {
@@ -44,31 +44,27 @@ public class AddOrderController implements ControllerWindow {
 			Transaction tx = MainClass.session.beginTransaction();
 			String sql_select = "Select * from Products where name = " + "'" + product + "'";
 			SQLQuery query = MainClass.session.createSQLQuery(sql_select);
-
 			query.addEntity(Product.class);
 			@SuppressWarnings("unchecked")
 			ArrayList<Product> results = (ArrayList<Product>) query.list();
 			tx.commit();
 			Product p = null;
-
 			try{
 				p = results.get(0);
 			} catch(IndexOutOfBoundsException e){
 				throw new ProductNotFoundException(e.getMessage(), product);
 			}
 			if(this.client == null){
-				throw new CustomerIsNullException("You have not chosen Client");
+				throw new MenuButtonIsNullException("You have not chosen Client");
 			}
-
 			this.order = new Order(p, amount, LocalDate.now(),
 					this.client, this.salesman);
-
 			dialogStage.close();
 		} catch (ProductNotFoundException e) {
 			Alert a = new Alert(AlertType.ERROR);
 			a.setContentText("Wrong value: " + e.toString());
 			a.showAndWait();
-		} catch(NumberFormatException | CustomerIsNullException  e) {
+		} catch(NumberFormatException | MenuButtonIsNullException  e) {
 			Alert a = new Alert(AlertType.ERROR);
 			a.setContentText(e.getMessage());
 			a.showAndWait();
@@ -88,7 +84,6 @@ public class AddOrderController implements ControllerWindow {
 		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
 		query.addEntity(Customer.class);
 		AddOrderController.customers = (ArrayList<Customer>) query.list();
-
 		for(Customer s : customers){
 			clients.getItems().add(new MenuItem(s.toString()));
 		}
