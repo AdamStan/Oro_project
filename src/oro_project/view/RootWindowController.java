@@ -136,7 +136,7 @@ public class RootWindowController {
 	}
 	@FXML
 	private void showProductsTable(){
-
+		mainApp.showProducts();
 	}
 
 

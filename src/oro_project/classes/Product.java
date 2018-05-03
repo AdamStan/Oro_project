@@ -5,6 +5,15 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -21,7 +30,7 @@ public class Product {
 	private Integer amount;
 	private Double priceEach;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product") //product is name's field in class Order
 	private Set<Order> orders = new HashSet<Order>();
 
 	public Product(){
@@ -67,5 +76,18 @@ public class Product {
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
 	}
+	public StringProperty idProperty() {
+		return new SimpleStringProperty(String.valueOf(this.id));
+	}
+	public StringProperty nameProperty() {
+		return new SimpleStringProperty(this.name);
+	}
+	public StringProperty priceProperty() {
+		return new SimpleStringProperty(String.valueOf(this.priceEach));
+	}
+	public StringProperty amountProperty() {
+		return new SimpleStringProperty(String.valueOf(this.amount));
+	}
+
 
 }

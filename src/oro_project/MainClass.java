@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import oro_project.view.AddOrderController;
 import oro_project.view.ControllerWindow;
 import oro_project.view.RootWindowController;
+import oro_project.view.ShowProductsController;
 import oro_project.view.exceptions.ProductNotFoundException;
 
 
@@ -25,7 +26,6 @@ public class MainClass extends Application{
 
 /*
  * Do zrobienia:
- * 1. Zamiana LocalDate na Date (konwersja typu LocalDate do bazy danych)
  * 2. Pokazanie Produktów
  * 3. Pokazanie Zamówieñ
  * 4. ZnajdŸ produkt, zamówienie, klienta
@@ -86,10 +86,28 @@ public class MainClass extends Application{
 		session.save(o1);
 		tx.commit();
 	}
+	public void showProducts() {
+	    try {
+	        // Load person overview.
+	        FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(MainClass.class.getResource("view/ShowProducts.fxml"));
+	        BorderPane showProduct = (BorderPane) loader.load();
+
+	        // Set person overview into the center of root layout.
+	        rootLayout.setCenter(showProduct);
+
+	        // Give the controller access to the main app.
+	        ShowProductsController controller = loader.getController();
+	        controller.setMainApp(this);
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
 
 	public static void main(String[] args) {
 		connect_with_database();
-		on_first_use();
+		//on_first_use();
 		launch(args);
 	}
 

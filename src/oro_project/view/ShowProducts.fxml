@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oro_project.view.ShowProductsController">
+   <center>
+      <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="75.0" text="id" />
+            <TableColumn fx:id="nameColumn" prefWidth="150.0" text="name" />
+            <TableColumn fx:id="priceColumn" prefWidth="75.0" text="price" />
+            <TableColumn fx:id="amountColumn" prefWidth="100.0" text="amount" />
+         </columns>
+      </TableView>
+   </center>
+</BorderPane>

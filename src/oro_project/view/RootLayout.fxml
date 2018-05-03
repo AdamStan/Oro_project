@@ -24,7 +24,7 @@
             <Menu mnemonicParsing="false" text="Show Data">
               <items>
                 <MenuItem mnemonicParsing="false" text="Orders" />
-                  <MenuItem mnemonicParsing="false" text="Products" />
+                  <MenuItem mnemonicParsing="false" onAction="#showProductsTable" text="Products" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Find">
