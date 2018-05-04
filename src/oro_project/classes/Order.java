@@ -14,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 @Entity
 @Table(name = "Orders")
 public class Order {
@@ -84,5 +87,20 @@ public class Order {
 	}
 	public void setSalesman(Salesman salesman) {
 		this.salesman = salesman;
+	}
+	public StringProperty idProperty() {
+		return new SimpleStringProperty(String.valueOf(this.id));
+	}
+	public StringProperty dateProperty() {
+		return new SimpleStringProperty(this.dateOfOrder.toString());
+	}
+	public StringProperty productNameProperty() {
+		return new SimpleStringProperty(this.product.toString());
+	}
+	public StringProperty clientNameProperty() {
+		return new SimpleStringProperty(this.customer.toString());
+	}
+	public StringProperty salesmanNameProperty() {
+		return new SimpleStringProperty(this.salesman.toString());
 	}
 }

@@ -88,6 +88,10 @@ public class Product {
 	public StringProperty amountProperty() {
 		return new SimpleStringProperty(String.valueOf(this.amount));
 	}
+	@Override
+	public String toString() {
+		return name;
+	}
 
 
 }
