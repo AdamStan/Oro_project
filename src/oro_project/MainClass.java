@@ -104,11 +104,23 @@ public class MainClass extends Application{
 	        e.printStackTrace();
 	    }
 	}
-
+	public void showOrders() {
+		try {
+	        // Load person overview.
+	        FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(MainClass.class.getResource("view/ShowOrders.fxml"));
+	        BorderPane showOrder = (BorderPane) loader.load();
+	        // Set person overview into the center of root layout.
+	        rootLayout.setCenter(showOrder);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
 	public static void main(String[] args) {
 		connect_with_database();
 		//on_first_use();
 		launch(args);
 	}
+
 
 }

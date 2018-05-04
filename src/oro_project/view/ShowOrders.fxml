@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
 
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oro_project.view.ShowOrdersController">
+   <center>
+      <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="idColumn" prefWidth="75.0" text="id" />
+          <TableColumn fx:id="clientNameColumn" prefWidth="75.0" text="client" />
+            <TableColumn fx:id="productNameColumn" prefWidth="75.0" text="product" />
+            <TableColumn fx:id="dateColumn" prefWidth="75.0" text="date" />
+            <TableColumn fx:id="salesmanNameColumn" prefWidth="95.0" text="salesman" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>
