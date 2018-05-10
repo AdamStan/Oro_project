@@ -23,7 +23,7 @@ public class AddOrderController implements ControllerWindow {
 	@FXML
 	private TextField amount;
 	@FXML
-	private MenuButton clients;
+	private MenuButton menuButtonClients;
 
 	private Stage dialogStage;
 	private Order order;
@@ -39,35 +39,36 @@ public class AddOrderController implements ControllerWindow {
 	@FXML
 	public void addOrder(){
 		try{
-			String product = productName.getText();
+			String productNameLocal = productName.getText();
 			Double amount = Double.valueOf(this.amount.getText());
 			Transaction tx = MainClass.session.beginTransaction();
-			String sql_select = "Select * from Products where name = " + "'" + product + "'";
+			String sql_select = "Select * from Products where name = "
+					+ "'" + productNameLocal + "'";
 			SQLQuery query = MainClass.session.createSQLQuery(sql_select);
 			query.addEntity(Product.class);
 			@SuppressWarnings("unchecked")
 			ArrayList<Product> results = (ArrayList<Product>) query.list();
 			tx.commit();
-			Product p = null;
+			Product product = null;
 			try{
-				p = results.get(0);
+				product = results.get(0);
 			} catch(IndexOutOfBoundsException e){
-				throw new ProductNotFoundException(e.getMessage(), product);
+				throw new ProductNotFoundException(e.getMessage(), productNameLocal);
 			}
 			if(this.client == null){
 				throw new MenuButtonIsNullException("You have not chosen Client");
 			}
-			this.order = new Order(p, amount, LocalDate.now(),
+			this.order = new Order(product, amount, LocalDate.now(),
 					this.client, this.salesman);
 			dialogStage.close();
 		} catch (ProductNotFoundException e) {
-			Alert a = new Alert(AlertType.ERROR);
-			a.setContentText("Wrong value: " + e.toString());
-			a.showAndWait();
+			Alert alertBox = new Alert(AlertType.ERROR);
+			alertBox.setContentText("Wrong value: " + e.toString());
+			alertBox.showAndWait();
 		} catch(NumberFormatException | MenuButtonIsNullException  e) {
-			Alert a = new Alert(AlertType.ERROR);
-			a.setContentText(e.getMessage());
-			a.showAndWait();
+			Alert alertBox = new Alert(AlertType.ERROR);
+			alertBox.setContentText(e.getMessage());
+			alertBox.showAndWait();
 		}
 	}
 
@@ -78,20 +79,20 @@ public class AddOrderController implements ControllerWindow {
 
 	@SuppressWarnings("unchecked")
 	public void loadMenuItems(){
-		clients.getItems().clear();
+		menuButtonClients.getItems().clear();
 		Transaction tx = MainClass.session.beginTransaction();
 		String sql_select = "Select * from Customers";
 		SQLQuery query = MainClass.session.createSQLQuery(sql_select);
 		query.addEntity(Customer.class);
 		AddOrderController.customers = (ArrayList<Customer>) query.list();
 		for(Customer s : customers){
-			clients.getItems().add(new MenuItem(s.toString()));
+			menuButtonClients.getItems().add(new MenuItem(s.toString()));
 		}
-		for(MenuItem mi : clients.getItems()){
+		for(MenuItem mi : menuButtonClients.getItems()){
 			mi.setOnAction(e -> {
-				clients.setText(mi.getText());
+				menuButtonClients.setText(mi.getText());
 				this.client =
-						customers.get(clients.getItems().indexOf(mi));
+					customers.get(menuButtonClients.getItems().indexOf(mi));
 			});
 		}
 		tx.commit();
@@ -107,7 +108,7 @@ public class AddOrderController implements ControllerWindow {
 	}
 
 	public void setClients(MenuButton c){
-		this.clients = c;
+		this.menuButtonClients = c;
 	}
 
 	public void setSalesman(Salesman s){

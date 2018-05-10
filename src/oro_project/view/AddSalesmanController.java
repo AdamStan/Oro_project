@@ -63,18 +63,18 @@ public class AddSalesmanController implements ControllerWindow {
 			query.addEntity(Address.class);
 			@SuppressWarnings("unchecked")
 			ArrayList<Address> results = (ArrayList<Address>) query.list();
-			Address ad = null;
+			Address address = null;
 			if(!results.isEmpty()){
 				System.out.println("Mamy adres w bazie");
-				ad = results.get(0);
+				address = results.get(0);
 			}
 			tx.commit();
-			if(ad == null){
-				ad = new Address(numberOfBuilding,street,city);
+			if(address == null){
+				address = new Address(numberOfBuilding,street,city);
 			}
 
 			this.salesman = new Salesman(name,surname,whenStarted,
-					ad, salary, bonus);
+					address, salary, bonus);
 			dialogStage.close();
 		} catch (NumberFormatException e){
 			Alert a = new Alert(AlertType.ERROR);
@@ -87,12 +87,10 @@ public class AddSalesmanController implements ControllerWindow {
     private void handleCancel() {
         dialogStage.close();
     }
-
 	@Override
 	public void setDialogStage(Stage mainWindow) {
 		this.dialogStage = mainWindow;
 	}
-
 	public Salesman getSalesman(){
 		return this.salesman;
 	}

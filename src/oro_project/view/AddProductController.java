@@ -31,9 +31,9 @@ public class AddProductController implements ControllerWindow {
 			product = new Product(name, amount, price);
 			dialogStage.close();
 		} catch(NumberFormatException e) {
-			Alert a = new Alert(AlertType.ERROR);
-			a.setContentText("Wrong value: " + e.getMessage());
-			a.showAndWait();
+			Alert alertBox = new Alert(AlertType.ERROR);
+			alertBox.setContentText("Wrong value: " + e.getMessage());
+			alertBox.showAndWait();
 		}
 	}
 

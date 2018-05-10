@@ -22,8 +22,9 @@ public class ShowProductsController {
 	@FXML
 	private TableColumn<Product, String> amountColumn;
 
-	private MainClass mainApp;
+	public ShowProductsController(){
 
+	}
 	@FXML
 	private void initialize(){
 		idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
@@ -36,19 +37,10 @@ public class ShowProductsController {
 		ArrayList<Product> results = (ArrayList<Product>) query.list();
 		ObservableList<Product> productData = FXCollections.observableArrayList();
 
-		for(Product p : results){
-			productData.add(p);
+		for(Product product : results){
+			productData.add(product);
 		}
 
 		table.setItems(productData);
 	}
-
-	public ShowProductsController(){
-
-	}
-
-	public void setMainApp(MainClass mainClass) {
-		this.mainApp = mainClass;
-	}
-
 }

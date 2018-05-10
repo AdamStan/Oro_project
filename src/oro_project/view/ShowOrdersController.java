@@ -49,8 +49,8 @@ public class ShowOrdersController {
 		ArrayList<Order> results = (ArrayList<Order>) query.list();
 		ObservableList<Order> orderData = FXCollections.observableArrayList();
 
-		for(Order p : results){
-			orderData.add(p);
+		for(Order order : results){
+			orderData.add(order);
 		}
 
 		table.setItems(orderData);

@@ -49,16 +49,16 @@ public class AddCustomerController implements ControllerWindow{
 		query.addEntity(Address.class);
 		@SuppressWarnings("unchecked")
 		ArrayList<Address> results = (ArrayList<Address>) query.list();
-		Address ad = null;
+		Address address = null;
 		if(!results.isEmpty()){
 			System.out.println("Mamy adres w bazie");
-			ad = results.get(0);
+			address = results.get(0);
 		}
 		tx.commit();
-		if(ad == null){
-			ad = new Address(number,street,city);
+		if(address == null){
+			address = new Address(number,street,city);
 		}
-		this.customer = new Customer(name,surname, ad);
+		this.customer = new Customer(name,surname, address);
 		dialogStage.close();
 	}
 

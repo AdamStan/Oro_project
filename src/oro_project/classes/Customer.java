@@ -24,13 +24,12 @@ public class Customer implements Serializable{
 	private Integer id;
 	private String name;
 	private String surname;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id", nullable = false)
 	private Address address;
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
 	private Set<Order> orders = new HashSet<Order>();
+
 	public Customer(){
 
 	}
@@ -79,6 +78,4 @@ public class Customer implements Serializable{
 	public String toString() {
 		return name + ", " + surname;
 	}
-
-
 }

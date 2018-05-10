@@ -29,8 +29,7 @@ public class Product {
 	private String name;
 	private Integer amount;
 	private Double priceEach;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product") //product is name's field in class Order
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
 	private Set<Order> orders = new HashSet<Order>();
 
 	public Product(){
@@ -92,6 +91,4 @@ public class Product {
 	public String toString() {
 		return name;
 	}
-
-
 }

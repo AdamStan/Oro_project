@@ -20,9 +20,9 @@ public class ProductNotFoundException extends Exception implements AlertBox {
 
 	@Override
 	public void showMessage() {
-		Alert a = new Alert(AlertType.ERROR);
-		a.setContentText(this.toString());
-		a.showAndWait();
+		Alert alertBox = new Alert(AlertType.ERROR);
+		alertBox.setContentText(this.toString());
+		alertBox.showAndWait();
 	}
 
 }
