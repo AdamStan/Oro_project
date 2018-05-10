@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import org.hibernate.SQLQuery;
 import org.hibernate.Transaction;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Alert.AlertType;
 import oro_project.MainClass;
 import oro_project.classes.*;
+import oro_project.view.exceptions.ErrorBox;
 import oro_project.view.exceptions.MenuButtonIsNullException;
-import oro_project.view.exceptions.ProductNotFoundException;
 
 public class RootWindowController {
 
@@ -90,7 +88,7 @@ public class RootWindowController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (MenuButtonIsNullException e){
-			e.showMessage();
+			new ErrorBox().showMessage(e, "");
 		}
 	}
 	@FXML

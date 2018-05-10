@@ -6,6 +6,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import oro_project.classes.Product;
+import oro_project.view.exceptions.ErrorBox;
 
 public class AddProductController implements ControllerWindow {
 	@FXML
@@ -31,9 +32,7 @@ public class AddProductController implements ControllerWindow {
 			product = new Product(name, amount, price);
 			dialogStage.close();
 		} catch(NumberFormatException e) {
-			Alert alertBox = new Alert(AlertType.ERROR);
-			alertBox.setContentText("Wrong value: " + e.getMessage());
-			alertBox.showAndWait();
+			new ErrorBox().showMessage(e, "Wrong value: ");
 		}
 	}
 

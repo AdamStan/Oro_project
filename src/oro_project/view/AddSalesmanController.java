@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import oro_project.MainClass;
 import oro_project.classes.Address;
 import oro_project.classes.Salesman;
+import oro_project.view.exceptions.ErrorBox;
 
 public class AddSalesmanController implements ControllerWindow {
 	@FXML
@@ -77,9 +78,7 @@ public class AddSalesmanController implements ControllerWindow {
 					address, salary, bonus);
 			dialogStage.close();
 		} catch (NumberFormatException e){
-			Alert a = new Alert(AlertType.ERROR);
-			a.setContentText("Wrong value: " + e.getMessage());
-			a.showAndWait();
+			new ErrorBox().showMessage(e, "Wrong value: ");
 		}
 	}
 

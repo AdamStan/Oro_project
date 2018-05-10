@@ -15,9 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import oro_project.view.AddOrderController;
 import oro_project.view.ControllerWindow;
 import oro_project.view.RootWindowController;
-import oro_project.view.ShowProductsController;
-import oro_project.view.exceptions.ProductNotFoundException;
-
 
 public class MainClass extends Application{
 	public static Session session;

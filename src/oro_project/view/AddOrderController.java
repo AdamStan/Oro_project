@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import oro_project.MainClass;
 import oro_project.classes.*;
+import oro_project.view.exceptions.ErrorBox;
 import oro_project.view.exceptions.MenuButtonIsNullException;
 import oro_project.view.exceptions.ProductNotFoundException;
 
@@ -62,13 +63,9 @@ public class AddOrderController implements ControllerWindow {
 					this.client, this.salesman);
 			dialogStage.close();
 		} catch (ProductNotFoundException e) {
-			Alert alertBox = new Alert(AlertType.ERROR);
-			alertBox.setContentText("Wrong value: " + e.toString());
-			alertBox.showAndWait();
+			new ErrorBox().showMessage(e, "Wrong value: ");
 		} catch(NumberFormatException | MenuButtonIsNullException  e) {
-			Alert alertBox = new Alert(AlertType.ERROR);
-			alertBox.setContentText(e.getMessage());
-			alertBox.showAndWait();
+			new ErrorBox().showMessage(e, "");
 		}
 	}
 
