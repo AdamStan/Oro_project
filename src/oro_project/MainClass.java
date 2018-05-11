@@ -65,6 +65,7 @@ public class MainClass extends Application{
 		Product product = new Product("Pepsi", 30, 3.99);
 		Address address = new Address("123","Aleja Politechniki","Lodz");
 		Salesman salesman = new Salesman("Jan","Kowalski", LocalDate.now(), address, 3500.50, 550.0);
+		salesman.setPassword("password");
 		Customer client = new Customer("Anna","Nowak", address);
 		Order order = new Order(product, 20.0, LocalDate.now(), client, salesman);
 		session.save(address);
@@ -96,7 +97,7 @@ public class MainClass extends Application{
 	}
 	public static void main(String[] args) {
 		connectWithDatabase();
-		//onFirstUse();
+		onFirstUse();
 		launch(args);
 	}
 }

@@ -32,6 +32,7 @@ public class Salesman implements Serializable{
 	private Address address;
 	private Double salary;
 	private Double bonus;
+	private char[] password = new char[64];
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesman")
 	private Set<Order> orders = new HashSet<Order>();
 
@@ -108,5 +109,15 @@ public class Salesman implements Serializable{
 	@Override
 	public String toString() {
 		return name + ", " + surname;
+	}
+	public String getPassword() {
+		return String.valueOf(password);
+	}
+	public void setPassword(String password) {
+		char[] array = password.toCharArray();
+		int index = 0;
+		for(char sign : array){
+			this.password[index++] = sign;
+		}
 	}
 }

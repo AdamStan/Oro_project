@@ -29,7 +29,6 @@ public class RootWindowController {
 	private void exitOnClick(){
 		System.exit(0);
 	}
-	@SuppressWarnings("unchecked")
 	public void loadMenuItems(){
 		whoAreYou.getItems().clear();
 		Transaction transaction = MainClass.session.beginTransaction();
