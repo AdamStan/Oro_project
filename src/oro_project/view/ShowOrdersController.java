@@ -26,6 +26,8 @@ public class ShowOrdersController {
 	private TableColumn<Order, String> clientNameColumn;
 	@FXML
 	private TableColumn<Order, String> salesmanNameColumn;
+	@FXML
+	private TableColumn<Order, String> amountColumn;
 
 	public ShowOrdersController(){
 
@@ -43,7 +45,8 @@ public class ShowOrdersController {
         		-> cellData.getValue().clientNameProperty());
         salesmanNameColumn.setCellValueFactory(cellData
         		-> cellData.getValue().salesmanNameProperty());
-
+        amountColumn.setCellValueFactory(cellData
+        		-> cellData.getValue().amountProperty());
         String command = "From Order";
 		Query query = MainClass.session.createQuery(command);
 		ArrayList<Order> results = (ArrayList<Order>) query.list();

@@ -16,6 +16,6 @@
       <Label layoutX="122.0" layoutY="6.0" text="Add Order" />
       <Label layoutX="26.0" layoutY="105.0" text="Amount" />
       <Label layoutX="26.0" layoutY="169.0" text="Client" />
-      <MenuButton fx:id="clients" layoutX="137.0" layoutY="165.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="150.0" text="Choose your client" />
+      <MenuButton fx:id="menuButtonClients" layoutX="137.0" layoutY="165.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="150.0" text="Choose your client" />
    </children>
 </AnchorPane>

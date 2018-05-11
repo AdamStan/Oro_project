@@ -49,6 +49,8 @@ public class RootWindowController {
 			});
 		}
 		transaction.commit();
+		whoAreYou.setText(LoginWindowController.salesman.toString());
+		whoAreYou.setDisable(true);
 	}
 
 	@FXML
@@ -73,7 +75,7 @@ public class RootWindowController {
 					(AddOrderController) mainApp.showAddWindow("Order");
 			if(controller.getOrder() != null){
 				Order order = controller.getOrder();
-				order.setSalesman(RootWindowController.salesman);
+				order.setSalesman(LoginWindowController.salesman);
 				if(order.getSalesman() == null){
 					throw new MenuButtonIsNullException("You have not chosen salesman");
 				}

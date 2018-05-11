@@ -8,6 +8,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,7 +34,8 @@ public class Salesman implements Serializable{
 	private Address address;
 	private Double salary;
 	private Double bonus;
-	private char[] password = new char[64];
+	@Column(name="password", columnDefinition = "varchar(64) NULL")
+	private String password;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesman")
 	private Set<Order> orders = new HashSet<Order>();
 
@@ -114,10 +117,6 @@ public class Salesman implements Serializable{
 		return String.valueOf(password);
 	}
 	public void setPassword(String password) {
-		char[] array = password.toCharArray();
-		int index = 0;
-		for(char sign : array){
-			this.password[index++] = sign;
-		}
+		this.password = password;
 	}
 }

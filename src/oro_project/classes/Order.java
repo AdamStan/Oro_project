@@ -99,4 +99,7 @@ public class Order {
 	public StringProperty salesmanNameProperty() {
 		return new SimpleStringProperty(this.salesman.toString());
 	}
+	public StringProperty amountProperty() {
+		return new SimpleStringProperty(String.valueOf(this.amount));
+	}
 }

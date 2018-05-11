@@ -76,6 +76,7 @@ public class AddSalesmanController implements ControllerWindow {
 
 			this.salesman = new Salesman(name,surname,whenStarted,
 					address, salary, bonus);
+			this.salesman.setPassword("12345");
 			dialogStage.close();
 		} catch (NumberFormatException e){
 			new ErrorBox().showMessage(e, "Wrong value: ");

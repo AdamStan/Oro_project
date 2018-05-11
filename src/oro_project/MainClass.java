@@ -9,11 +9,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oro_project.classes.*;
 import javafx.scene.layout.AnchorPane;
 import oro_project.view.AddOrderController;
 import oro_project.view.ControllerWindow;
+import oro_project.view.LoginWindowController;
 import oro_project.view.RootWindowController;
 
 public class MainClass extends Application{
@@ -22,6 +24,22 @@ public class MainClass extends Application{
 	public static Stage primaryStage;
 	@Override
 	public void start(Stage primaryStage) {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(MainClass.class.getResource("view/LoginWindow.fxml"));
+        try {
+			VBox rootLayout = (VBox) loader.load();
+			Scene scene = new Scene(rootLayout);
+			LoginWindowController controller = loader.getController();
+	        controller.setMainApp(this);
+	        MainClass.primaryStage = primaryStage;
+	        primaryStage.setScene(scene);
+            primaryStage.setTitle("SHOP");
+            primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void showMainManu() {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(MainClass.class.getResource("view/RootLayout.fxml"));
         try {
@@ -97,7 +115,7 @@ public class MainClass extends Application{
 	}
 	public static void main(String[] args) {
 		connectWithDatabase();
-		onFirstUse();
+		//onFirstUse();
 		launch(args);
 	}
 }
